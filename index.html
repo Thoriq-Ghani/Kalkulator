@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Kompleks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator {
+            width: 320px;
+            background-color: #000;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .calculator-screen {
+            width: 100%;
+            height: 50px;
+            background-color: #333;
+            color: #fff;
+            text-align: right;
+            font-size: 24px;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .button {
+            height: 50px;
+            background-color: #555;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .button.operator {
+            background-color: #ff9500;
+        }
+        .button.clear {
+            background-color: #b5b5b5;
+        }
+        .button.zero {
+            grid-column: span 2;
+        }
+        .button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="calculator-screen" id="screen" readonly />
+        <div class="button-grid">
+            <button class="button clear" onclick="clearScreen()">AC</button>
+            <button class="button operator" onclick="inputValue('/')">/</button>
+            <button class="button operator" onclick="inputValue('*')">×</button>
+            <button class="button operator" onclick="inputValue('-')">-</button>
+            <button class="button" onclick="inputValue('7')">7</button>
+            <button class="button" onclick="inputValue('8')">8</button>
+            <button class="button" onclick="inputValue('9')">9</button>
+            <button class="button operator" onclick="inputValue('+')">+</button>
+            <button class="button" onclick="inputValue('4')">4</button>
+            <button class="button" onclick="inputValue('5')">5</button>
+            <button class="button" onclick="inputValue('6')">6</button>
+            <button class="button operator" onclick="calculate()">=</button>
+            <button class="button" onclick="inputValue('1')">1</button>
+            <button class="button" onclick="inputValue('2')">2</button>
+            <button class="button" onclick="inputValue('3')">3</button>
+            <button class="button zero" onclick="inputValue('0')">0</button>
+            <button class="button" onclick="inputValue('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        let screen = document.getElementById('screen');
+        let screenValue = '';
+
+        function inputValue(value) {
+            screenValue += value;
+            screen.value = screenValue;
+        }
+
+        function clearScreen() {
+            screenValue = '';
+            screen.value = '';
+        }
+
+        function calculate() {
+            try {
+                screen.value = eval(screenValue);
+                screenValue = screen.value;
+            } catch (err) {
+                screen.value = 'Error';
+                screenValue = '';
+            }
+        }
+    </script>
+</body>
+</html>
